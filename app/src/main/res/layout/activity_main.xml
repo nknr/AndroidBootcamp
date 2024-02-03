@@ -12,6 +12,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="14"
