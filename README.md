@@ -13,8 +13,8 @@ Key component
 **Fragment** is same an activity but this require activity on which fragment can run and help in reusability. This has own lifecycle **onAttach(), onCreate(), onCreateView(), onStart(), onResume(), onPause(), onStop(), onDestroyView(), onDestroy().**
 
 **Intent** is a messaging object, used to communicate with application component or with different application.
-    - <b>Implicit Intent</b/> is used to communicate with predefined action. Action like opening the webpage, mail, call.
-    - <b> Explict Intent</b> is used to communicate within application component like activity, broadcast receiver.
+ - <b>Implicit Intent</b> is used to communicate with predefined action. Action like opening the webpage, mail, call.
+ - <b> Explict Intent</b> is used to communicate within application component like activity, broadcast receiver.
 
 **Broadcast Receiver** in Android is a component that allows applications to receive and handle broadcast messages from the Android system or other applications. These messages, or broadcasts, are sent when an event occurs, such as the device charging, network changes, or custom application-defined events.
 - We can register brodcast from manifest(implicit register) or by registering from activity, fragment & services (exclicit).
