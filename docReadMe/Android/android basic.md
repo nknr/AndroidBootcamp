@@ -9,6 +9,14 @@ Key component
        - <b>Emulator</b> is virtual device which help to run android in laptop on which we can test application
    - <b>Platform tools</b> packages that contain the APIs and libraries for specific android versions.
 
+## Android Component
+Android applications are built using four main components, which manage the app’s UI, background processes, and data handling.
+
+- Activity
+- Service
+- Broadcast Receiver
+- Content provider
+
 ## Manifest
 Manifest is configuration file for an android app. This describes main information about the app that include
   - Package name
@@ -62,12 +70,32 @@ Fragment is reusable and modular ui component that represent a portion of a scre
  - `onDestroy()`
  - `onDetach()`
 
-- **Fragment** is same an activity but this require activity on which fragment can run and help in reusability. This has own lifecycle **onAttach(), onCreate(), onCreateView(), onStart(), onResume(), onPause(), onStop(), onDestroyView(), onDestroy().**
+## Intent
+Intent is a messaging object, used to communicate with application component or with different application.
+   - `Implicit Intent` is used to request an action without specifying the target app. The system determines which app can handle the request
+**Open a Website in Browser** 
+```
+val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"))
+startActivity(intent)
+```
 
-- **Intent** is a messaging object, used to communicate with application component or with different application.
-   - <b>Implicit Intent</b> is used to communicate with predefined action. Action like opening the webpage, mail, call.
-   - <b> Explict Intent</b> is used to communicate within application component like activity, broadcast receiver.
+**Send an email**
 
-- **Broadcast Receiver** in Android is a component that allows applications to receive and handle broadcast messages from the Android system or other applications. These messages, or broadcasts, are sent when an event occurs, such as the device charging, network changes, or custom application-defined events.
+```
+val intent = Intent(Intent.ACTION_SENDTO)
+intent.data = Uri.parse("mailto:example@gmail.com")
+intent.putExtra(Intent.EXTRA_SUBJECT, "Hello!")
+intent.putExtra(Intent.EXTRA_TEXT, "How are you?")
+startActivity(intent)
+```
+
+- `Explict Intent` is used to launch a specific activity within the same app. You define the target activity directly.
+
+```
+val intent = Intent(this, SecondActivity::class.java)
+startActivity(intent)
+```
+## Broadcast Receiver
+Broadcast Receiver in Android is a component that allows applications to receive and handle broadcast messages from the Android system or other applications. These messages, or broadcasts, are sent when an event occurs, such as the device charging, network changes, or custom application-defined events.
   - We can register brodcast from manifest(implicit register) or by registering from activity, fragment & services (exclicit).
   - Implicit registed will not work if android OS version >= 26 except few [intent action](https://developer.android.com/develop/background-work/background-tasks/broadcasts/broadcast-exceptions)
