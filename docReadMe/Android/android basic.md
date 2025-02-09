@@ -70,6 +70,63 @@ Fragment is reusable and modular ui component that represent a portion of a scre
  - `onDestroy()`
  - `onDetach()`
 
+## Launch Mode
+Launch Modes define how an activity is launched and how it interacts with the back stack. They determine whether a new instance of an activity should be created or an existing one should be reused. There are four launch modes
+
+   1. `standard`
+   2. `singleTop`
+   3. `singleTask`
+   4. `singleInstance`
+
+- **standard:** 
+   - A new instance of the activity is created every time it is launched.
+	-  Each instance is added to the task stack.
+</br>
+
+```
+Start A → Stack: [A]
+Start B → Stack: [A, B]
+Start A again → Stack: [A, B, A]
+Start C → Stack: [A, B, A, C]
+```
+
+- **singleTop**
+   - If the activity is already on top of the stack, no new instance is created. Instead, onNewIntent() is called.
+	- If it’s not on top, a new instance is created.
+   
+</br>
+
+```
+Start A → Stack: [A]
+Start B → Stack: [A, B]
+Start B again → No new instance (onNewIntent() is called) → Stack: [A, B]
+Start C → Stack: [A, B, C]
+```
+
+ - **singleTask**
+   - A new instance is created if the activity is not in the stack.
+	- If it exists anywhere in the stack, Android brings that activity to the foreground and clears all activities above it.
+</br>
+
+```  
+Start A → Stack: [A]
+Start B → Stack: [A, B]
+Start C → Stack: [A, B, C]
+Start A again → Stack: [A] (Removes B and C, brings A to the top)
+```
+	
+- **singleInstance**
+  - Similar to singleTask, but no other activities can be part of its task.
+  - If another activity is started, it goes into a separate task.
+</br>
+
+```    
+Start A → Stack: [A]
+Start B → Stack: [A, B]
+Start C (singleInstance) → New Task created → [C] (Separate task)
+Start D from C → New Task → [C, D]
+```
+	
 ## Intent
 Intent is a messaging object, used to communicate with application component or with different application.
    - `Implicit Intent` is used to request an action without specifying the target app. The system determines which app can handle the request
