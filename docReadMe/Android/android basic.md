@@ -152,6 +152,107 @@ startActivity(intent)
 val intent = Intent(this, SecondActivity::class.java)
 startActivity(intent)
 ```
+
+## Service
+
+Service is a background component that performs long-running operations without a user interface. It is useful for tasks like playing music, handling network operations, performing file I/O, or interacting with databases.
+
+1. `Foreground Service`
+
+   - Runs in the background but remains visible to the user via a **notification**.
+   - Used for tasks like **playing music**, **tracking location**, or **handling ongoing network operations**.
+   - Requires **FOREGROUND_SERVICE** permission and a notification.
+
+```
+class MyForegroundService : Service() {
+    override fun onCreate() {
+        super.onCreate()
+        startForeground(1, createNotification()) // Run in foreground
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
+    private fun createNotification(): Notification {
+        val channelId = "ForegroundServiceChannel"
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setContentTitle("Foreground Service")
+            .setContentText("Running in the background")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .build()
+        return notification
+    }
+}
+
+```
+
+2. `Background Service`
+
+   - Runs without a **UI and user interaction**.
+   - Used for **syncing data, updating databases, or downloading files**.
+   - Since **Android 8 (Oreo)**, background services have strict restrictions.
+
+```
+class MyBackgroundService : Service() {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Perform background task
+        return START_NOT_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+}
+```
+
+3. `Bound Service`
+
+   - A client-server model where multiple components bind to a service.
+   - The service **dies** when no clients are bound.
+   - Used for real-time interactions (e.g., music players, data fetching).
+
+```
+class MyBoundService : Service() {
+    private val binder = LocalBinder()
+
+    inner class LocalBinder : Binder() {
+        fun getService(): MyBoundService = this@MyBoundService
+    }
+
+    override fun onBind(intent: Intent?): IBinder {
+        return binder
+    }
+
+    fun getData(): String {
+        return "Bound Service Data"
+    }
+}
+
+```
+
+**Lifecycle Methods of Service**
+
+| Method | Description |
+| :---: | :-- |
+| onCreate() | Called when the service is created. |
+| onStartCommand() |	Handles start requests from other components. |
+| onBind() | Returns an IBinder for bound services. |
+| onUnbind() | Called when all clients have unbound. |
+| onDestroy()| Called when the service is destroyed. |
+
+**Service Execution Modes**
+
+| Execution Mode | Description |
+| :---: | :--- |
+| `START_NOT_STICKY` | The service is not restarted if killed. |
+| `START_STICKY` | The service is restarted but intent is null. |
+| `START_REDELIVER_INTENT` |	The service is restarted and receives the last intent. |
+
 ## Broadcast Receiver
 Broadcast Receiver in Android is a component that allows applications to receive and handle broadcast messages from the Android system or other applications. These messages, or broadcasts, are sent when an event occurs, such as the device charging, network changes, or custom application-defined events.
   - We can register brodcast from manifest(implicit register) or by registering from activity, fragment & services (exclicit).
