@@ -25,7 +25,25 @@ val name: String = "Neeraj"
 name = "kumar" // we will get syntax issue in this line
 ```
 ## null safety
+In Kotlin, null safety is a key feature that helps to prevent from `NullPointerException`. kotlin differentiates between nullable and non-nullable types to enforce safe handling of null values.
 
+- **Non Nullable (String)** can't be assigned null value to variable.
+- **Nullable (String?)** can hold null value.
+
+```
+var nonNullableVariable: String = "Hello"
+nonNullableVariable = null // Compilation error
+
+var nullableVariable: String? = "Hello"
+nullableVariable = null // Allowed
+```
+- **Safe call (?.)** Used to safely access properties or call function on nullable types
+
+```
+var nullable: String? = "Hello"
+println(nullable?.length)
+nullable = null
+println(nullable)
 
 ## late init
 `late init` keyword is used
