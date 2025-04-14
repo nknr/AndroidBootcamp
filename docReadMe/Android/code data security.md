@@ -2,7 +2,8 @@
 
 
 ## Progurad/R8
-Proguard/R8 is tool in android that help to shrink, obfuscate and optimize code.
+Proguard/R8 is tool in android, help to shrink, obfuscate and optimize code so that app size can reduce, prevent from reverse engineering
+
 - **Shrink:** Remove unused code and resource
 - **Obfuscate:** Renames code to make it smaller and secure
 - **Optimize code:** Improves bytecode efficiency
