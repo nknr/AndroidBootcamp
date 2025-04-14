@@ -81,6 +81,15 @@ Common ProGuard Rules
 }
 ```
 
+| File Name| What It Shows | Why It is Useful |
+| :--- | :--- | :--- |
+| mapping.txt | Obfuscated names mapping | For de-obfuscating crash logs |
+| usage.txt | Code that was removed | For checking what's eliminated |
+| seeds.txt | Code that was retained| For understanding keep rules impact |
+| whyareyoukeeping.txt| Explanation of why something wasn't removed | For advanced debugging and rule fine-tuning |
+
+These files generated when we run release command.
+
 
 - Certificate pining
 - data encryption, decryption alogrithm
