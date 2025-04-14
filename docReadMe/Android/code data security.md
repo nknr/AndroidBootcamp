@@ -1,14 +1,42 @@
 # Code & data security
 
+
 ## Progurad/R8
 Proguard/R8 is tool in android that help to shrink, obfuscate and optimize code.
 - **Shrink:** Remove unused code and resource
 - **Obfuscate:** Renames code to make it smaller and secure
 - **Optimize code:** Improves bytecode efficiency
-- **desugaring:** Convert code in such way that code would work for older version. 
+- **desugaring:** Convert code in such way that code would work for older version.
+
 
 ```
 -keep [modifiers] class qualified.name { members; }
+```
+
+**Optimization**
+```
+// Code
+public int add() {
+    return 2 + 2;
+}
+
+// Proguard/ R8
+public int add() {
+    return 4;
+}
+```
+
+**Desugaring**
+
+```
+// Code
+List<String> list = Arrays.asList("a", "b", "c");
+list.forEach(item -> Log.d("Item", item));
+
+// Proguard/ R8
+for (String item : list) {
+    Log.d("Item", item);
+}
 ```
 
 | Feature | ProGuard | R8 |
